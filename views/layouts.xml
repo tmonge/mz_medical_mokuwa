@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="mz_medical.medical_external_layout">
+
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        
+        <div class="header" style="margin-bottom: 10px !important;">
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo" />
+                </div>
+                <div class="col-9">
+                </div>
+            </div>
+        </div>
+        <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+        </div>
+        <div class="footer o_standard_footer">
+            <div class="row text-center" style="border-top: 1px solid black;">
+                <div class="col-12">
+                    <span>CRF CRF MOKUWA, N°2, 11eme Rue Petit Boulevard Limete Industriel. Référence : INPP Kinshasa</span><br/>
+                      <span>Tel: +243898945594 ,Email: mokuwacentre@gmail.co, N°Impôt : A1819849W - CNSS: 010212986U1 - B.P: 1049 Kin 1 INPP : 103012.00</span>
+					  
+					
+					<br/>
+                    <p style="font-size:13px;">Page <span class="page"/> / <span class="topage"/></p>
+                </div>
+            </div>
+        </div>
+    
+    </template>
+
+    <template id="mz_medical.medical_external_layout_a5">
+
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        
+        <div class="header" style="margin-bottom: 5px !important;">
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo" />
+                </div>
+                <div class="col-9">
+                </div>
+            </div>
+        </div>
+        <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+        </div>
+        <div class="footer o_standard_footer">
+            <div class="row text-center" style="border-top: 1px solid black;">
+                <div class="col-12" style="font-size:12px;line-height:15px;">
+                    <span>CRF MOKUWA, N°2, 11eme Rue Petit Boulevard Limete Industriel. Référence : INPP Kinshasa</span><br/>
+                    <span>Tel: +243898945594 ,Email: mokuwacentre@gmail.com, N°Impôt : A1819849W - CNSS: 010212986U1 - B.P: 1049 Kin 1 INPP : 103012.00</span><!-- <span>Médecins de Nuit SARL, 4744 Avenue Province Quartier Golf Gombe - Kinshasa, Tel: <t t-if="company.phone"><span class="o_force_ltr" t-field="company.phone"/></t></span> -->
+                    
+					
+					<br/>
+                    <p>Page <span class="page"/> / <span class="topage"/></p>
+                </div>
+            </div>
+        </div>
+    
+    </template>
+
+    <template id="mz_medical.medical_external_layout_a6">
+
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        
+        <div class="header" style="margin-bottom: 10px !important;">
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo" />
+                </div>
+                <div class="col-9">
+                </div>
+            </div>
+        </div>
+        <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+        </div>
+        <div class="footer o_standard_footer">
+            <div class="row text-center" style="border-top: 1px solid black;">
+                <div class="col-12" style="font-size:10px;line-height:15px;">
+                    <span>CRF MOKUWA, N°2, 11eme Rue Petit Boulevard Limete Industriel. Référence : INPP Kinshasa</span><br/>
+                    <span>Tel: +243898945594 ,Email: mokuwacentre@gmail.com, N°Impôt : A1819849W - CNSS: 010212986U1 - B.P: 1049 Kin 1 INPP : 103012.00</span><br/>
+                    
+					<p>Page <span class="page"/> / <span class="topage"/></p>
+                </div>
+            </div>
+        </div>
+    
+    </template>
+
+
+    <template id="mz_medical.medical_internal_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <div class="header">
+            <div class="row">
+                <div class="col-3">
+                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y %H:%M')"/>
+                </div>
+                <div class="col-3 offset-2 text-center">
+                    <span t-esc="company.name"/>
+                </div>
+                <div class="col-2 offset-2 text-right">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><span class="page"/></li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item"><span class="topage"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+          <t t-raw="0"/>
+        </div>
+        <div class="footer o_standard_footer">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <span>CRF MOKUWA, N°2, 11eme Rue Petit Boulevard Limete Industriel. Référence : INPP Kinshasa</span><br/>
+                    <span>Tel: +243898945594 ,Email: mokuwacentre@gmail.com, N°Impôt : A1819849W - CNSS: 010212986U1 - B.P: 1049 Kin 1 INPP : 103012.00</span><br/>
+                    
+					<p class="text-center">Page <span class="page"/> / <span class="topage"/></p> 
+                </div>
+            </div>
+        </div>
+
+    </template>
+
+</odoo>

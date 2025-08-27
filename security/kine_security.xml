@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+	
+	    <record model="res.groups" id="group_kine">
+	        <field name="category_id" ref="mz_medical.category_medical"/>
+	        <field name="name">Kinésithérapeute</field>
+			<field name="users" eval="[(4, ref('base.user_admin'))]" />
+	    </record>
+
+		<record model="res.groups" id="group_secretaire">
+	        <field name="category_id" ref="mz_medical.category_medical"/>
+	        <field name="name">Secrétaire </field>
+			<field name="users" eval="[(4, ref('base.user_admin'))]" />
+	    </record>
+	
+	</data>
+</openerp>

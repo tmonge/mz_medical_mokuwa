@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	
+	    <!-- PRELEVEMENT -->
+
+		<!-- <record model="ir.ui.view" id="prelevement_tree_mokuwa_inherit">
+			<field name="name">prescription.acte.tree.mokuwa.inherit</field>
+			<field name="model">mz.prescription.acte</field>
+			<field name="inherit_id" ref="mz_medical_labo.prelevement_tree" />
+			<field name="arch" type="xml">
+			    <field name="echantillon" position="replace">
+					<field name="echantillon" string="N° Echantillon" required="1"/>
+                </field>
+				<button name="generer_num_echantillon" position="replace">
+                </button>
+			</field>
+	    </record> -->
+
+		<!-- HISTORIQUE RESULTATS LABORATOIRE -->
+		
+		<record model="ir.ui.view" id="historique_resultats_labo_tree_mokuwa_inherit">
+			<field name="name">analyse.biologique.tree.mokuwa.inherit</field>
+			<field name="model">mz.analyse.biologique.line</field>
+			<field name="inherit_id" ref="mz_medical_labo.historique_resultats_labo_tree" />		
+			<field name="arch" type="xml">
+				<field name="date_validation_biologique" position="after">
+					<field name="observations_medecin"/>
+                </field>
+			</field>
+		</record>
+			
+	</data>
+</odoo>

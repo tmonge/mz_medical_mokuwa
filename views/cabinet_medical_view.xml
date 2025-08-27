@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+	
+		<!-- CONSULTATION MEDICAL -->
+		
+		<record model="ir.ui.view" id="consultation_medical_mukuwa_form_inherit">
+			<field name="name">Consultation Medical.form.inherit</field>
+			<field name="model">mz.consultation.medical</field>
+			<field name="inherit_id" ref="mz_medical_cabinet.consultation_medical_form" />
+			<field name="arch" type="xml">
+				<button name="recevoir_cabinet_medical" position="after">
+					<button name="inspection" string="Inspection" icon="fa-male" type="object" class="oe_highlight"/>
+					<button name="resumeanciendossier" string="Résumé ancien dossier" icon="fa-file-text" type="object" class="oe_highlight"/>
+				</button>
+				<button name="%(mz_medical.action_prescription_actes)d" position="after">
+					<button name="traitement" string="Traitement" icon="fa-file-text" type="object" class="oe_highlight"/>
+					<button name="action_view_demande_traitement_kine" string="Demande traitement kiné" icon="fa-file-text" type="object" class="oe_highlight"/>
+				</button>
+				<xpath expr="//notebook/page[4]" position="attributes">
+					<attribute name="string">Conclusion</attribute>        
+                </xpath>
+				<!-- <xpath expr="//notebook/page[2]/field[@name='resume_clinique']" position="attributes">
+					<attribute name="placeholder">Conclusion</attribute>          
+                </xpath> -->
+				<xpath expr="//notebook/page[4]" position="after">
+					<page string="Examen Radiologique">
+						<field name="examen_radiologique" placeholder="Examen Radiologique" attrs="{'readonly':[('state','=','acheve')]}" nolabel="1" colspan="4"/>
+					</page>
+					<page string="Examen Complementaire">
+						<field name="examen_complementaire" placeholder="Examen Complementaire" attrs="{'readonly':[('state','=','acheve')]}" nolabel="1" colspan="4"/>
+					</page>     
+                </xpath>
+
+			</field>
+		</record>
+
+		<record id="view_consultation_medical_resumeancien" model="ir.ui.view">
+            <field name="name">consultation.medical.resumeanciendossier</field>
+            <field name="model">mz.consultation.resume.anciendossier</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Résumé ancien dossier">
+					<field name="consultation_medical_id" invisible="1"/>
+					<field name="state" invisible="1" />
+					<group string="Résumé ancien dossier" colspan="4">
+						<notebook>
+							<page string="Résumé Ancien Dossier">
+								<field name="resume_ancien_dossier" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+							</page>
+							<page string="Résumé Ancien Dossier Radio">
+								<field name="resume_ancien_dossier_radio" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+							</page>
+						</notebook>
+					</group>
+					<footer>
+						<button string="Sauvegarder" name="write_success" type="object" class="oe_highlight"/>
+						<button string="Annuler" special="cancel" class="btn btn-secondary"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+		
+		<record id="view_consultation_medical_inspection" model="ir.ui.view">
+            <field name="name">consultation.medical.inspection</field>
+            <field name="model">mz.consultation.medical.inspection</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="INSPECTION">
+					<field name="consultation_medical_id" invisible="1"/>
+					<field name="state" invisible="1" />
+       
+                    <group col="4" colspan="4">
+						<group string="Rachis" colspan="2">
+							<field name="rachis" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+						</group>
+						<group string="L'épaule et le membre supérieur" colspan="2">
+							<field name="epaule_membre_superieur" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+						</group>
+						<group string="Le bassin et les membres inférieurs" colspan="2">
+							<field name="bassin_membre_inferieur" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+						</group>
+						<group string="La station débout" colspan="2">
+							<field name="station_debout" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+						</group>
+						<group string="La déambulation" colspan="2">
+							<field name="deambulation" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+						</group>
+						
+						<group string="PALPATION" colspan="4">
+							<notebook>
+								<page string="La colonne vertébrale">
+							    	<field name="colonne_vertebrale" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+								</page>
+								<page string="Les membres supérieurs">
+							    	<field name="palpi_membres_superieurs" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+								</page>
+								<page string="Le bassin et les membres inférieurs">
+							    	<field name="palpi_bassin_membre_inferieur" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+								</page>
+							</notebook>
+						</group>
+
+						<group string="MENSURATIONS" colspan="4">
+							<notebook>
+								<page string="Les mensuration longitudinales">
+							    	<field name="mensurations_longitudinales" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+								</page>
+								<page string="Les mensuration péripheriques">
+							    	<field name="mensurations_perimetriques" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+								</page>
+							</notebook>
+						</group>
+						
+						<group string="MOBILITE PASSIVE" colspan="4">
+							<field name="mobile_passive" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+							<newline/>
+							<field name="stade_mobile_passive_ids" attrs="{'readonly':[('state','=', 'acheve')]}" widget="many2many_checkboxes" nolabel="1"/>
+						</group>
+
+						<group string="SENSIBILITE ET REFLEXES" colspan="4">
+							<group string="Examen de la sensibilité(tactile, thermique et à la douleur)" colspan="2">
+								<field name="examen_sensibilite" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+							</group>
+							<group string="Examen des réflexes ostéo-tendineux(tripal, bicipal, rotulien, achilléen, etc...)" colspan="2">
+								<field name="examen_reflexes" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/>
+							</group>
+						</group>
+						
+					</group>
+					
+					<footer>
+						<button string="Sauvegarder" name="write_success" type="object" class="oe_highlight"/>
+						<button string="Annuler" special="cancel" class="btn btn-secondary"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+		<record id="view_consultation_medical_traitement" model="ir.ui.view">
+            <field name="name">consultation.medical.traitement</field>
+            <field name="model">mz.consultation.medical.traitement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Traitement">
+					<field name="consultation_medical_id" invisible="1"/>
+					<field name="state" invisible="1" />
+					
+                    <group col="4" colspan="4">
+						<group colspan="4">
+							<field name="consultation_medical_traitement_ids" attrs="{'readonly':[('state','=', 'acheve')]}" nolabel="1"/><newline/>
+						</group>
+						<group>
+							<field name="methode_chirurgicales_interention_os" attrs="{'readonly':[('state','=', 'acheve')]}" widget="radio"/><newline/>
+							<field name="methode_chirurgicales_interention_tendons" attrs="{'readonly':[('state','=', 'acheve')]}" widget="radio"/><newline/>
+						</group>
+						<group>
+							<field name="methode_chirurgicales_interention_arti" attrs="{'readonly':[('state','=', 'acheve')]}" widget="radio"/><newline/>
+							<field name="methode_chirurgicales_interventin_nerfs" attrs="{'readonly':[('state','=', 'acheve')]}" widget="radio"/><newline/>
+						</group>
+					</group>
+					
+					<footer>
+						<button string="Sauvegarder" name="write_success" type="object" class="oe_highlight"/>
+						<button string="Annuler" special="cancel" class="btn btn-secondary"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

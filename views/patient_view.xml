@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	
+	    <record model="ir.ui.view" id="view_dossier_patient_form_inherit_mokuwa">
+			<field name="name">patient.form.inherit.mokuwa</field>
+			<field name="model">mz.patient</field>
+			<field name="inherit_id" ref="mz_medical.view_dossier_patient_form" />		
+			<field name="arch" type="xml">
+				<button name="action_view_historique_visite_ambulatoire" position="after">
+					<button name="action_view_dossier_kine_readaptation" class="oe_stat_button" icon="fa-folder-open"
+							string="Dossier kiné-readaptation" type="object"
+							help="Dossier du patient en kiné-readaptation" 
+							groups="mz_medical.group_infirmier,mz_medical.group_medecin,mz_medical.group_medecin_directeur"/>
+                </button>
+
+				<!-- <xpath expr="//notebook/page[2]" position="attributes">
+					<attribute name="string">Conclusion</attribute>        
+                </xpath> -->
+			</field>
+		</record>
+			
+	</data>
+</odoo>

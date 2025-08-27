@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+
+<template id="report_facture_layout_inherit_nyota2" inherit_id="mz_medical_caisse_facturation.report_facture_layout">
+
+	<xpath expr="//div[@class='clearfix']//div//div//table//tr[1]" position="replace">
+		<tr>
+			<td><span> <strong> Total prescrits: </strong></span> </td>
+			<td align="right"> <span t-esc="total_prescription * taux"  t-options='{"widget": "monetary", "display_currency": devise}'/> </td>
+		</tr>
+	</xpath>
+
+	<xpath expr="//div[@class='clearfix']//div//div//table//tr[2]" position="replace">
+		<tr>
+			<td><span> <strong> Total Payé: </strong></span> </td>
+			<td align="right">
+				<span t-esc="(total_payement_caution + total_payement_dette + total_validation_cash) * taux"  t-options='{"widget": "monetary", "display_currency": devise}'/>
+			</td>
+		</tr>
+	</xpath>
+
+	<xpath expr="//div[@class='clearfix']//div//div//table//tr[3]" position="replace">
+		<tr>
+			<td><span> <strong> Balance: </strong></span> </td>
+			<td align="right">
+				<span t-esc="(total_prescription - (total_payement_caution + total_payement_dette + total_validation_cash)) * taux"  t-options='{"widget": "monetary", "display_currency": devise}'/>
+			</td>
+		</tr>
+	</xpath>
+
+</template>
+
+<template id="mz_medical_caisse_facturation.report_facture_detaillee">
+
+	<t t-foreach="docs" t-as="o">
+		<!-- <t t-set="report_qr_code" t-value="bon_resultat_qr"/> -->
+		<t t-set="ref_facture" t-value="o.episode_medical_id.name"/>
+		<t t-set="date_facture" t-value="o.create_date"/>
+		<t t-set="nom_patient" t-value="o.patient_id.name"/>
+		<t t-if="o.patient_id.prenom">
+			<t t-set="prenom_patient" t-value="o.patient_id.prenom"/>
+		</t>
+		<t t-else="else">
+			<t t-set="prenom_patient" t-value=""/>
+		</t>
+		<t t-set="num_dossier" t-value="o.patient_id.numero_fiche"/>
+		<t t-if="o.patient_id.partner_id.phone">
+			<t t-set="telephone" t-value="o.patient_id.partner_id.phone"/>
+		</t>
+		<t t-else="else">
+			<t t-set="telephone" t-value=""/>
+		</t>
+		<t t-set="sexe" t-value="o.patient_id.sexe"/>
+		<t t-set="date_naissance" t-value="o.patient_id.date_naissance"/>
+		<t t-set="age" t-value="o.patient_id.age"/>
+		<!-- <t t-set="contrat" t-value="o.patient_id.contrat"/> -->
+
+		<t t-if="o.patient_id.contrat == 'prive'">
+			<t t-set="contrat" t-value="'PRIVE'"/>
+		</t>
+		<t t-else="else">
+			<t t-set="contrat" t-value="'CONVENTIONNE'"/>
+		</t>
+		<t t-if="o.patient_id.convention_id">
+			<t t-set="societe" t-value="o.patient_id.convention_id.name"/>
+		</t>
+		<t t-else="else">
+			<t t-set="societe" t-value="'PRIVE'"/>
+		</t>
+		<t t-set="facture_line_ids" t-value="o.facture_line_ids"/>
+		<t t-set="total_prescription" t-value="o.total_prescription"/>
+		<t t-set="total_facture" t-value="o.total_facture"/>
+		<t t-set="total_paye" t-value="o.total_paye"/>
+		<t t-set="total_validation_cash" t-value="o.total_validation_cash"/>
+		<t t-set="total_payement_caution" t-value="o.total_payement_caution"/>
+		<t t-set="total_payement_dette" t-value="o.total_payement_dette"/>
+		<t t-set="balance" t-value="o.balance"/>
+
+		<!-- <t t-set="type" t-value="Facture"/>
+		<t t-call="mz_medical_caisse_facturation.report_facture_layout_values" /> -->
+
+		<t t-call="mz_medical_caisse_facturation.report_facture_layout" />
+	</t>
+    
+</template>
+
+
+<template id="mz_medical_caisse_facturation.facture_detail_dev_sec">
+
+	<t t-foreach="docs" t-as="o">
+		<!-- <t t-set="report_qr_code" t-value="bon_resultat_qr"/> -->
+		<t t-set="ref_facture" t-value="o.episode_medical_id.name"/>
+		<t t-set="date_facture" t-value="o.create_date"/>
+		<t t-set="nom_patient" t-value="o.patient_id.name"/>
+		<t t-if="o.patient_id.prenom">
+			<t t-set="prenom_patient" t-value="o.patient_id.prenom"/>
+		</t>
+		<t t-else="else">
+			<t t-set="prenom_patient" t-value=""/>
+		</t>
+		<t t-if="o.patient_id.partner_id.phone">
+			<t t-set="telephone" t-value="o.patient_id.partner_id.phone"/>
+		</t>
+		<t t-else="else">
+			<t t-set="telephone" t-value=""/>
+		</t>
+		<t t-set="sexe" t-value="o.patient_id.sexe"/>
+		<t t-set="date_naissance" t-value="o.patient_id.date_naissance"/>
+		<t t-set="age" t-value="o.patient_id.age"/>
+		<t t-set="num_dossier" t-value="o.patient_id.numero_fiche"/>
+		<!-- <t t-set="contrat" t-value="o.patient_id.contrat"/> -->
+
+		<t t-if="o.patient_id.contrat == 'prive'">
+			<t t-set="contrat" t-value="'PRIVE'"/>
+		</t>
+		<t t-else="else">
+			<t t-set="contrat" t-value="'CONVENTIONNE'"/>
+		</t>
+		<t t-if="o.patient_id.convention_id">
+			<t t-set="societe" t-value="o.patient_id.convention_id.name"/>
+		</t>
+		<t t-else="else">
+			<t t-set="societe" t-value="'PRIVE'"/>
+		</t>
+		<t t-set="facture_line_ids" t-value="o.facture_line_ids"/>
+		<t t-set="total_prescription" t-value="o.total_prescription"/>
+		<t t-set="total_facture" t-value="o.total_facture"/>
+		<t t-set="total_paye" t-value="o.total_paye"/>
+		<t t-set="total_validation_cash" t-value="o.total_validation_cash"/>
+		<t t-set="total_payement_caution" t-value="o.total_payement_caution"/>
+		<t t-set="total_payement_dette" t-value="o.total_payement_dette"/>
+		<t t-set="balance" t-value="o.balance"/>
+
+		<!-- <t t-set="type" t-value="Facture"/>
+		<t t-call="mz_medical_caisse_facturation.report_facture_layout_values" /> -->
+
+		<t t-call="mz_medical_caisse_facturation.report_facture_layout" />
+	</t>
+</template>
+
+<template id="mz_medical_caisse_facturation.report_facture_lines">
+
+	<!-- <t t-set="report_qr_code" t-value="bon_resultat_qr"/> -->
+	<t t-set="ref_facture" t-value="docs[0].facture_id.episode_medical_id.name"/>
+	<t t-set="date_facture" t-value="docs[0].facture_id.create_date"/>
+	<t t-set="nom_patient" t-value="docs[0].facture_id.patient_id.name"/>
+	<t t-if="docs[0].facture_id.patient_id.prenom">
+		<t t-set="prenom_patient" t-value="docs[0].facture_id.patient_id.prenom"/>
+	</t>
+	<t t-else="else">
+		<t t-set="prenom_patient" t-value=""/>
+	</t>
+	<t t-if="docs[0].facture_id.patient_id.partner_id.phone">
+		<t t-set="telephone" t-value="docs[0].facture_id.patient_id.partner_id.phone"/>
+	</t>
+	<t t-else="else">
+		<t t-set="telephone" t-value=""/>
+	</t>
+	<t t-set="sexe" t-value="docs[0].facture_id.patient_id.sexe"/>
+	<t t-set="date_naissance" t-value="docs[0].facture_id.patient_id.date_naissance"/>
+	<t t-set="age" t-value="docs[0].facture_id.patient_id.age"/>
+	<t t-set="num_dossier" t-value="docs[0].facture_id.patient_id.numero_fiche"/>
+	<!-- <t t-set="contrat" t-value="docs[0].facture_id.patient_id.contrat"/> -->
+
+	<t t-if="docs[0].facture_id.patient_id.contrat == 'prive'">
+		<t t-set="contrat" t-value="'PRIVE'"/>
+	</t>
+	<t t-else="else">
+		<t t-set="contrat" t-value="'CONVENTIONNE'"/>
+	</t>
+	<t t-if="docs[0].facture_id.patient_id.convention_id">
+		<t t-set="societe" t-value="docs[0].facture_id.patient_id.convention_id.name"/>
+	</t>
+	<t t-else="else">
+		<t t-set="societe" t-value="'PRIVE'"/>
+	</t>
+
+	<t t-set="facture_line_ids" t-value="docs"/>
+
+	<t t-set="taux" t-value="1"/>
+	<t t-set="total_prescription" t-value="0"/>
+	<t t-set="total_facture" t-value="0"/>
+	<t t-set="total_paye" t-value="0"/>
+	<t t-set="total_validation_cash" t-value="0"/>
+	<t t-set="total_payement_caution" t-value="0"/>
+	<t t-set="total_payement_dette" t-value="0"/>
+	<t t-foreach="docs" t-as="facture_line">
+		<t t-set="total_prescription" t-value="total_prescription + facture_line.prix_total"/>
+		<t t-if="facture_line.state == 'facture'">
+			<t t-set="total_facture" t-value="total_facture + facture_line.prix_total"/>
+		</t>
+		<t t-set="total_paye" t-value="total_paye + facture_line.montant_paye"/>
+		<t t-if="facture_line.type_apurement == 'Cash'">
+			<t t-set="total_validation_cash" t-value="total_validation_cash + facture_line.montant_paye"/>
+		</t>
+		<t t-if="facture_line.type_apurement == 'Caution'">
+			<t t-set="total_payement_caution" t-value="total_payement_caution + facture_line.montant_paye"/>
+		</t>
+		<t t-if="facture_line.type_apurement == 'Payement_dette'">
+			<t t-set="total_payement_dette" t-value="total_payement_dette + facture_line.montant_paye"/>
+		</t>
+	</t>
+
+	<t t-set="balance" t-value="total_facture - total_paye"/>
+
+	<t t-set="devise" t-value="docs[0].facture_id.devise_company_id"/>
+
+	<!-- <t t-set="type" t-value="Facture_line"/>
+	<t t-call="mz_medical_caisse_facturation.report_facture_layout_values" /> -->
+
+	<t t-call="mz_medical_caisse_facturation.report_facture_layout" />
+</template>
+
+</data>
+</openerp>

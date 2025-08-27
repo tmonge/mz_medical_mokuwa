@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<menuitem name="TRIAGE" id="mz_medical_infirmier.medical_infirmier" parent="mz_medical.medical_salle_soins_root" sequence="1" groups="mz_medical.group_infirmier,mz_medical_mokuwa.group_secretaire"/>
+
+		<menuitem name="Consultation en attente" id="mz_medical_infirmier.menu_salle_soin" parent="mz_medical_infirmier.medical_infirmier" action="mz_medical_infirmier.action_salle_soin" groups="mz_medical.group_infirmier"/>
+
+		<record model="ir.ui.view" id="episode_medical_infirmier_form_mokuwa_inherit">
+			<field name="name">episode_medical.form.mokuwa.inherit</field>
+			<field name="model">mz.episode.medical</field>
+			<field name="inherit_id" ref="mz_medical_infirmier.episode_medical_infirmier_form" />
+			<field name="arch" type="xml">
+				<button name="recevoir_salle_soins" position="after">
+					<button name="envoyer_chez_secretaire" type="object" string="Envoyer chez sécretaire" states="recu_salle_soins" class="oe_highlight"/>
+                </button>
+				<field name="state" position="replace">
+					<field name="state" widget="statusbar" statusbar_visible="confirmee,recu_salle_soins,attente_reception_secretaire,recu_secretaire,attente_consultation,consulte"/>
+                </field>
+				<button name="action_view_dossier_patient" position="replace">
+					<button name="action_view_dossier_patient" string="Dossier médical" class="oe_stat_button" icon="fa-folder-open" type="object" groups="mz_medical.group_infirmier" />
+                </button>
+				<field name="cabinet_destination_id" position="replace">
+					<field name="cabinet_destination_id" attrs="{'invisible':[('state','not in',['attente_reception_secretaire','recu_secretaire','attente_consultation','consulte'])], 'required':[('state','=', 'recu_secretaire')],'readonly':[('state','!=', 'recu_secretaire')]}"/>
+                </field>
+				<xpath expr="//notebook" position="attributes">
+					<attribute name="attrs">{'invisible':[('state','not in',['consulte','recu_salle_soins','attente_reception_secretaire','recu_secretaire','attente_consultation'])]}</attribute>          
+                </xpath>
+				
+			</field>
+		</record>
+		
+    </data>
+</openerp>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+	
+	    <record id="mz_medical.seq_patient" model="ir.sequence">
+            <field name="name">Patient</field>
+            <field name="code">patient</field>
+            <field name="prefix"></field>
+            <field name="padding">5</field>
+            <field name="suffix">/%(year)s</field>
+            <field name="number_next_actual">7</field>
+        </record>
+	
+	</data>
+</openerp>
+
+		
+		

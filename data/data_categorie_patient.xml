@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	
+        <!-- mz.patient.categorie -->
+        <record id="patient_categorie_A" model="mz.patient.categorie">    
+            <field name="name">A</field>
+        </record>
+
+        <record id="patient_categorie_B" model="mz.patient.categorie">    
+            <field name="name">B</field>
+        </record>
+
+        <record id="patient_categorie_C" model="mz.patient.categorie">    
+            <field name="name">C</field>
+        </record>
+
+        <record id="patient_categorie_d" model="mz.patient.categorie">    
+            <field name="name">D</field>
+        </record>
+		
+    </data>
+</odoo>

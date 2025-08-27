@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="med_facture_form_view_inherit_mokuwa">
+			<field name="name">med.facture.form.inherit.mokuwa</field>
+			<field name="model">mz.med.facture</field>
+			<field name="inherit_id" ref="mz_medical_caisse_facturation.med_facture_form_view" />
+			<field name="arch" type="xml">
+
+				<button name="%(mz_medical_caisse_facturation.act_validation_acte_cash)d" position="after">
+					<button name="%(act_validation_pharmacie_don)d"
+						type="action"
+						icon="mz_medical/static/src/img/STOCK_JUMP_TO.png" attrs="{'invisible':[('state','!=', 'nouveau'),('type_affichage','!=','Pharmacie')]}" group="mz_medical_pharmacie_facturation.group_caisse_pharmacie"/>			 
+				</button>
+				
+			</field>
+		</record>
+				
+    </data>
+</openerp>

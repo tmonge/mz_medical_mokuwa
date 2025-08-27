@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- FACTURES PROFORMA -->
+		
+        <record model="ir.ui.view" id="med_facture_proforma_search_inherit_mokuwa">
+			<field name="name">med.facture.proforma.search</field>
+			<field name="model">mz.med.facture.proforma</field>
+			<field name="inherit_id" ref="mz_medical_caisse_facturation.med_facture_proforma_search"/>
+			<field name="arch" type="xml">
+
+				<field name="nom" position="after">
+					<field name="categorie_id" required="1"/>
+				</field>
+
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="med_facture_proforma_form_inherit_mokuwa_view">
+			<field name="name">med.facture.proforma.form</field>
+			<field name="model">mz.med.facture.proforma</field>
+			<field name="inherit_id" ref="mz_medical_caisse_facturation.med_facture_proforma_form_view"/>
+			<field name="arch" type="xml">
+				
+				<field name="nom" position="after">
+					<field name="categorie_id" required="1"/>
+				</field>
+
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="med_facture_proforma_tree_inherit_mokuwa_view">
+			<field name="name">med.facture.proforma.tree</field>
+			<field name="model">mz.med.facture.proforma</field>
+			<field name="inherit_id" ref="mz_medical_caisse_facturation.med_facture_proforma_tree_view"/>
+			<field name="arch" type="xml">
+				
+				<field name="nom" position="after">
+					<field name="categorie_id" required="1"/>
+				</field>
+
+			</field>
+		</record>
+
+    </data>
+</openerp>

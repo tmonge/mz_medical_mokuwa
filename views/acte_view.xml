@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	
+	    <!-- ********** ACTES ************* -->
+
+		<record model="ir.ui.view" id="view_acte_form_inherit_cat_patient_mokuwa">
+			<field name="name">acte.form.inherit.mokuwa</field>
+			<field name="model">mz.acte</field>
+			<field name="inherit_id" ref="mz_medical_caisse_facturation.view_acte_form_inherit"/>
+			<field name="arch" type="xml">
+
+				<xpath expr="//notebook/page[1]//group[1]" position="after">
+                    <group colspan="4" col="4" string="Prix par catégorie patient">
+						<field name="prix_acte_categorie_patient_ids" colspan="4" nolabel="1">
+							<form string="Mode facturation sous catégorie">
+								<field name="categorie_id" required="1" widget="selection"/>
+								<field name="prix" required="1" string="Prix adulte"/>
+								<field name="prix_enfant" />
+							</form>
+							<tree string="Mode facturation sous catégorie" editable="bottom">
+								<field name="categorie_id" required="1" widget="selection"/>
+								<field name="prix" required="1" string="Prix adulte"/>
+								<field name="prix_enfant" />
+							</tree>
+						</field>
+					</group>       
+                </xpath>
+				
+				<!-- <field name="prix_acte_categorie_patient_ids" position="replace">
+					<field name="prix_acte_categorie_patient_ids" colspan="4" nolabel="1">
+						<form string="Mode facturation sous catégorie">
+							<field name="categorie_id" required="1" widget="selection"/>
+							<field name="prix" required="1" string="Prix adulte"/>
+							<field name="prix_enfant" />
+						</form>
+						<tree string="Mode facturation sous catégorie" editable="bottom">
+							<field name="categorie_id" required="1" widget="selection"/>
+							<field name="prix" required="1" string="Prix adulte"/>
+							<field name="prix_enfant" />
+						</tree>
+					</field>
+				</field>			 -->
+
+			</field>
+	    </record>
+			
+	</data>
+</odoo>

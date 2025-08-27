@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+        <record id="view_kine_demande_traitement_search" model="ir.ui.view">
+            <field name="name">kine.demande.traitement</field>
+            <field name="model">mz.kine.demande.traitement</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Traitement">
+					<field name="patient_id" />
+					<field name="traitement_prescris_id" />
+					<field name="demande_par" />
+					<field name="date_demande" />
+					<separator/>
+					<filter name="to_day" string="Aujourd'hui" domain="[('date_demande','>=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" />
+                    
+                </search>
+            </field>
+        </record>
+
+        <record id="view_kine_demande_traitement_tree" model="ir.ui.view">
+            <field name="name">kine.demande.traitement</field>
+            <field name="model">mz.kine.demande.traitement</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Traitement">
+					<field name="patient_id" />
+					<field name="num_fiche" />
+					<field name="traitement_prescris_id" />
+					<field name="nombre_seances" />
+					<field name="observation_medecin" />
+					<field name="demande_par" />
+					<field name="date_demande" />
+                </tree>
+            </field>
+        </record>
+	
+		<record id="view_kine_demande_traitement_form" model="ir.ui.view">
+            <field name="name">kine.demande.traitement</field>
+            <field name="model">mz.kine.demande.traitement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Traitement">
+                    <header>
+						<button name="valider" string="Valider" type="object" class="oe_highlight" states="nouveau"/>
+						<field name="state" invisible="1" />
+				    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="consultation_medical_id" invisible="1" />
+                                <field name="patient_id" readonly="1"/>
+                                <field name="num_fiche" />
+                                <field name="sexe"/>
+                                <field name="age"/>
+                                <field name="date_naissance"/>
+                                <field name="avenue"/>
+                                <field name="quartier"/>
+                                <field name="commune_id"/>
+                                <field name="etat_civile"/>
+                                <field name="telephone"/>
+                                <field name="contrat"/>
+                                <field name="profession_id"/>
+                            </group>
+                            <group>
+                                <field name="traitement_prescris_id" required="1"/>
+                                <field name="nombre_seances" required="1"/>
+								<field name="observation_medecin" required="1" />
+                                <field name="demande_par" readonly="1"/>
+                                <field name="date_demande" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+		<record model="ir.actions.act_window" id="action_demande_traitement_kine">
+		    <field name="name">Demande traitement kiné</field>
+		    <field name="res_model">mz.kine.demande.traitement</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+
+
+        <record id="view_kine_demande_traitement_serv_kine_tree" model="ir.ui.view">
+            <field name="name">kine.demande.traitement</field>
+            <field name="model">mz.kine.demande.traitement</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Traitement" decoration-primary="state=='valide'" create="false" default_order='date_demande desc'>
+				
+					<field name="patient_id" />
+					<field name="num_fiche" />
+					<field name="traitement_prescris_id" />
+					<field name="nombre_seances" />
+					<field name="demande_par" />
+					<field name="date_demande" />
+					<field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kine_demande_traitement_serv_kine_form" model="ir.ui.view">
+            <field name="name">kine.demande.traitement</field>
+            <field name="model">mz.kine.demande.traitement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Traitement">
+                    <header>
+						<button name="prendre_en_charge" string="Prendre en charge" type="object" class="oe_highlight" states="valide"/>
+						<field name="state" invisible="1" />
+				    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="consultation_medical_id" invisible="1" />
+                                <field name="patient_id" readonly="1"/>
+                                <field name="num_fiche" />
+                                <field name="sexe"/>
+                                <field name="age"/>
+                                <field name="date_naissance"/>
+                                <field name="avenue"/>
+                                <field name="quartier"/>
+                                <field name="commune_id"/>
+                                <field name="etat_civile"/>
+                                <field name="telephone"/>
+                                <field name="contrat"/>
+                                <field name="profession_id"/>
+                            </group>
+                            <group>
+                                <field name="traitement_prescris_id" required="1"/>
+                                <field name="nombre_seances" required="1"/>
+								<field name="observation_medecin" required="1" />
+                                <field name="demande_par" readonly="1"/>
+                                <field name="date_demande" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_demande_traitement_kine_serv_kine">
+		    <field name="name">Demande traitement kiné</field>
+		    <field name="res_model">mz.kine.demande.traitement</field>
+			<field name="view_mode">tree,form</field>
+            <field name="domain"> ['|',('state','=','valide'),('state','=','prise_en_charge')]</field>
+	    </record>
+
+        <record model="ir.actions.act_window.view" id="action_demande_traitement_kine_form_view">
+		    <field eval="20" name="sequence"/>
+		    <field name="view_mode">form</field>
+		    <field name="view_id" ref="view_kine_demande_traitement_serv_kine_form"/>
+		    <field name="act_window_id" ref="action_demande_traitement_kine_serv_kine"/>
+	    </record>
+
+        <record model="ir.actions.act_window.view" id="action_demande_traitement_kine_tree_view">
+		    <field eval="10" name="sequence"/>
+		    <field name="view_mode">tree</field>
+		    <field name="view_id" ref="view_kine_demande_traitement_serv_kine_tree"/>
+		    <field name="act_window_id" ref="action_demande_traitement_kine_serv_kine"/>
+	    </record>
+
+        <menuitem name="KINESITHERAPIE" id="menu_kine_root"/>
+
+        <menuitem name="Demande traitement" id="menu_demande_traitement_kine" parent="menu_kine_root" action="action_demande_traitement_kine_serv_kine" sequence="1"/>
+
+        <!-- DOSSIER PATIENT KINESITHERAPIE -->
+		
+		
+		
+		
+		<record model="ir.ui.view" id="view_kine_dossier_patient_search">
+			<field name="name">mz.kine.dossier.patient.search</field>
+			<field name="model">mz.kine.dossier.patient</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Dossier kine Patient">
+					<field name="patient_id" />
+					<field name="num_fiche" string="N° Fiche"/>
+				</search>
+			</field>
+		</record>
+        
+        <record id="view_kine_dossier_patient_tree" model="ir.ui.view">
+            <field name="name">kine.dossier.patient</field>
+            <field name="model">mz.kine.dossier.patient</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Dossier patient kine">
+					<field name="patient_id" />
+					<field name="num_fiche" />
+					<field name="motif_consultation_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kine_dossier_patient_form" model="ir.ui.view">
+            <field name="name">kine.dossier.patient</field>
+            <field name="model">mz.kine.dossier.patient</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Traitement">
+                    <header name="consult">
+						<button name="evaluation_deficiences" string="Evaluation déficiences" icon="fa-reply" type="object" class="oe_highlight"/>
+						<button name="evaluation_capa_fonctionnelles" string="Evaluation capacités fonctionnelles" icon="fa-male" type="object" class="oe_highlight"/>
+						<!-- <field name="state" invisible="1" /> -->
+				    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="patient_id" readonly="1"/>
+                                <field name="num_fiche" />
+                                <field name="sexe"/>
+                                <field name="age"/>
+                                <field name="date_naissance"/>
+                            </group>
+                            <group>
+                                <field name="avenue"/>
+                                <field name="quartier"/>
+                                <field name="commune_id"/>
+                                <field name="etat_civile"/>
+                                <field name="telephone"/>
+                                <field name="contrat"/>
+                                <field name="profession_id"/>
+                            </group>
+                        </group>
+                        <div class="row">
+							<div class="col-lg-12">
+								<div class="oe_title">
+									<h1>Renseignements medico-technique</h1>
+                                    <hr/>
+								</div>
+							</div>
+						</div>
+                        <group string="Consultation">
+                            <group>
+                                <field name="motif_consultation_id" required="1"/>
+                                <field name="traitement_en_cours" />
+                                <field name="medecin_prescripteur" />
+                                <field name="service_prescription" />
+                            </group>
+                            <group>
+                                <field name="diagnostic_medical_id" required="1"/>
+                                <field name="prescription_medicale_trait_kine" />
+                                <field name="structure_prescription" />
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Anamnèse">
+                                <field name="anamnese" placeholder="Anamnèse" nolabel="1" colspan="4"/>
+                            </page>
+                            <page string="Antécédents">
+                                <group>
+                                    <group string="Antécédents medicaux">
+                                        <field name="antecedent_medicaux_ids" nolabel="1" colspan="4"/>
+                                    </group>
+                                    <group string="Antécédents chirurgicaux">
+                                        <field name="antecedent_chirurgicaux_ids" nolabel="1" colspan="4"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Antécédents familiaux">
+                                        <field name="antecedent_familiaux_ids" nolabel="1" colspan="4"/>
+                                    </group>
+                                    <group string="Allergiques">
+                                        <field name="allergiques" nolabel="1" colspan="4"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Résultats des examens para cliniques">
+                                <field name="resultats_examens_para_cliniques" placeholder="Résultats des examens para cliniques" nolabel="1" colspan="4"/>
+                            </page>
+                            <page string="Attentes du patient">
+                                <field name="attentes_patient" placeholder="Attentes du patient" nolabel="1" colspan="4"/>
+                            </page>
+                            <page string="Consignes particulières">
+                                <field name="consignes_particulieres" placeholder="Consignes particulières" nolabel="1" colspan="4"/>
+                            </page>
+							<page string="Bilan">
+                                <field name="bilan" placeholder="Bilan" nolabel="1" colspan="4"/>
+                            </page>
+                            <page string="Diagnostic kinésithérapique">
+                                <field name="diagnostic_kine" placeholder="Diagnostic kinésithérapique" nolabel="1" colspan="4"/>
+                            </page>
+                            <page string="Orientation du patient">
+                                <group>
+                                    <field name="transfert" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="lieu_transfert" attrs="{'invisible':[('transfert','!=', 'Oui')], 'required':[('transfert','=', 'Oui')]}"/>
+                                    <field name="referencement" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="motif_referencement" attrs="{'invisible':[('referencement','!=', 'Oui')], 'required':[('referencement','=', 'Oui')]}"/>
+                                    <field name="lieu_referencement" attrs="{'invisible':[('referencement','!=', 'Oui')], 'required':[('referencement','=', 'Oui')]}"/>
+                                </group>
+                            </page>
+                            <!-- <page string="Objectif prise en charge">
+                                <group>
+                                    <group string="Objectif(s) prise en charge court terme">
+                                        <field name="objectif_prise_encharge_court_terme" nolabel="1" colspan="4"/>
+                                    </group>
+                                    <group string="Objectif(s) prise en charge moyen terme">
+                                        <field name="objectif_prise_encharge_moyen_terme" nolabel="1" colspan="4"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Objectif(s) prise en charge fin traitement">
+                                        <field name="objectif_prise_encharge_fin_traitement" nolabel="1" colspan="4"/>
+                                    </group>
+                                </group>
+                            </page> -->
+                        </notebook>
+                        <div class="row">
+							<div class="col-lg-12">
+								<div class="oe_title">
+									<h1>Directives de traitement</h1>
+								</div>
+							</div>
+						</div>
+                        <group>
+                            <field name="directives_traitement" placeholder="Directives de traitement" nolabel="1" colspan="4"/>
+                        </group>
+                        <group string="Objectifs de la prise en charge kinesitherapique">
+                            <group>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="oe_title">
+                                            <h4>Objectif(s) à court terme</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <field name="objectif_prise_encharge_court_terme" nolabel="1" colspan="4"/>
+                            </group>
+                            <group>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="oe_title">
+                                            <h4>Objectif(s) à moyen terme</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <field name="objectif_prise_encharge_moyen_terme" nolabel="1" colspan="4"/>
+                            </group>
+                            <group>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="oe_title">
+                                            <h4>Objectif(s) de fin traitement</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <field name="objectif_prise_encharge_fin_traitement" nolabel="1" colspan="4"/>
+                            </group>
+                        </group>
+                        <group string="Traitement">
+                        </group>
+                        <group>
+                            <group> 
+                                <field name="nombre_seances_prevues" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="traitement_line_ids" nolabel="1" colspan="4"/>
+                        </group>
+                        <group string="Evaluation globale en fin de traitement">
+                            <field name="evaluation_globale" nolabel="1" colspan="4"/>
+                        </group>
+                        <group>
+                            <field name="noms_theurapeute"/>
+                            <field name="correspondance_prof"/>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dossier_patient_kine">
+		    <field name="name">Dossier patient kine</field>
+		    <field name="res_model">mz.kine.dossier.patient</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+
+        <menuitem name="Dossier patient" id="menu_dossier_patient_kine" parent="menu_kine_root" action="action_dossier_patient_kine" sequence="2"/>
+
+        <!-- EVALUATION DEFICIENCES -->
+
+        <record id="view_kine_evaluation_deficiences_form" model="ir.ui.view">
+            <field name="name">kine.evaluation.deficiences</field>
+            <field name="model">mz.kine.evaluation.deficiences</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Evaluation déficiences" create="false">
+                    <sheet>
+                        <field name="dossier_patient_kine_id" invisible="1"/>
+                        <group string="Evaluation des déficiences">
+                            <field name="evaluation_deficiences_line_ids" required="1" nolabel="1" colspan="4">
+                                <tree string="Evaluation Biodéficiences line" editable="bottom">
+									<field name="name" />
+									<field name="date"/>
+								</tree>
+                                <form string="Evaluation Biodéficiences line">
+									<field name="name" />
+									<field name="date"/>
+								</form>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+         <!-- EVALUATION CAPACITES FONCTIONNELLES -->
+
+        <record id="view_kine_evaluation_capa_fonctionnelles_form" model="ir.ui.view">
+            <field name="name">kine.evaluation.capacites.fonctionnelles</field>
+            <field name="model">mz.kine.evaluation.capacites.fonctionnelles</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Evaluation capacités fonctionnelles" create="false">
+                    <sheet>
+                        <field name="dossier_patient_kine_id" invisible="1"/>
+                        <notebook>
+                            <page string="Entrée">
+                                <group string="Soins personnels">
+                                    <field name="alimentation_entree" string="Alimentation"/>
+                                    <field name="soins_apparence_entree" string="Soins de l'apparence"/>
+                                    <field name="toilette_entree" string="Toilette"/>
+                                    <field name="habillage_partie_sup_entree" string="Habillage partie supérieure"/>
+                                    <field name="habillage_partie_inf_entree" string="Habillage partie inférieure"/>
+                                    <field name="utilisatioon_toilette_entree" string="Utilisatioon des toilettes"/>
+                                    <field name="vessie_entree" string="Vessie"/>
+                                    <field name="intestin_entree" string="Intestin"/>
+                                </group>
+                                <group string="Mobilité, transferts">
+                                    <field name="mobilite_lit_chaisse_entree" string="Lit, chaise, fauteuil roulant"/>
+                                    <field name="mobilite_wc_entree" string="W.C"/>
+                                    <field name="mobilite_baignoire_douche_entree" string="Baignoire, douche"/>
+                                </group>
+                                <group string="Locomotion">
+                                    <field name="locomotion_marche_entree" string="Marche"/>
+                                    <field name="locomotion_fauteuil_roulant_entree" string="Fauteuil roulant"/>
+                                    <field name="locomotion_toilette_entree" string="Toilette"/>
+                                </group>
+                                <group string="Communication">
+                                    <field name="communication_comprehension_entree" string="Compréhension"/>
+                                    <field name="communication_expression_entree" string="Expression"/>
+                                </group>
+                                <group string="Conscience du monde extérieur">
+                                    <field name="conscience_monde_ext_interaction_sociale_entree" string="Interactions sociales"/>
+                                    <field name="conscience_resolution_pb_entree" string="Résolution des problèmes"/>
+                                    <field name="conscience_memoire_entree" string="Mémoire"/>
+                                </group>
+                            </page>
+                            <page string="Séjour">
+                                <group string="Soins personnels">
+                                    <field name="alimentation_sejour" string="Alimentation"/>
+                                    <field name="soins_apparence_sejour" string="Soins de l'apparence"/>
+                                    <field name="toilette_sejour" string="Toilette"/>
+                                    <field name="habillage_partie_sup_sejour" string="Habillage partie supérieure"/>
+                                    <field name="habillage_partie_inf_sejour" string="Habillage partie inférieure"/>
+                                    <field name="utilisatioon_toilette_sejour" string="Utilisatioon des toilettes"/>
+                                    <field name="vessie_sejour" string="Vessie"/>
+                                    <field name="intestin_sejour" string="Intestin"/>
+                                </group>
+                                <group string="Mobilité, transferts">
+                                    <field name="mobilite_lit_chaisse_sejour" string="Lit, chaise, fauteuil roulant"/>
+                                    <field name="mobilite_wc_sejour" string="W.C"/>
+                                    <field name="mobilite_baignoire_douche_sejour" string="Baignoire, douche"/>
+                                </group>
+                                <group string="Locomotion">
+                                    <field name="locomotion_marche_sejour" string="Marche"/>
+                                    <field name="locomotion_fauteuil_roulant_sejour" string="Fauteuil roulant"/>
+                                    <field name="locomotion_toilette_sejour" string="Toilette"/>
+                                </group>
+                                <group string="Communication">
+                                    <field name="communication_comprehension_sejour" string="Compréhension"/>
+                                    <field name="communication_expression_sejour" string="Expression"/>
+                                </group>
+                                <group string="Conscience du monde extérieur">
+                                    <field name="conscience_monde_ext_interaction_sociale_sejour" string="Interactions sociales"/>
+                                    <field name="conscience_resolution_pb_sejour" string="Résolution des problèmes"/>
+                                    <field name="conscience_memoire_sejour" string="Mémoire"/>
+                                </group>
+                            </page>
+                            <page string="Sortie">
+                                <group string="Soins personnels">
+                                    <field name="alimentation_sortie" string="Alimentation"/>
+                                    <field name="soins_apparence_sortie" string="Soins de l'apparence"/>
+                                    <field name="toilette_sortie" string="Toilette"/>
+                                    <field name="habillage_partie_sup_sortie" string="Habillage partie supérieure"/>
+                                    <field name="habillage_partie_inf_sortie" string="Habillage partie inférieure"/>
+                                    <field name="utilisatioon_toilette_sortie" string="Utilisatioon des toilettes"/>
+                                    <field name="vessie_sortie" string="Vessie"/>
+                                    <field name="intestin_sortie" string="Intestin"/>
+                                </group>
+                                <group string="Mobilité, transferts">
+                                    <field name="mobilite_lit_chaisse_sortie" string="Lit, chaise, fauteuil roulant"/>
+                                    <field name="mobilite_wc_sortie" string="W.C"/>
+                                    <field name="mobilite_baignoire_douche_sortie" string="Baignoire, douche"/>
+                                </group>
+                                <group string="Locomotion">
+                                    <field name="locomotion_marche_sortie" string="Marche"/>
+                                    <field name="locomotion_fauteuil_roulant_sortie" string="Fauteuil roulant"/>
+                                    <field name="locomotion_toilette_sortie" string="Toilette"/>
+                                </group>
+                                <group string="Communication">
+                                    <field name="communication_comprehension_sortie" string="Compréhension"/>
+                                    <field name="communication_expression_sortie" string="Expression"/>
+                                </group>
+                                <group string="Conscience du monde extérieur">
+                                    <field name="conscience_monde_ext_interaction_sociale_sortie" string="Interactions sociales"/>
+                                    <field name="conscience_resolution_pb_sortie" string="Résolution des problèmes"/>
+                                    <field name="conscience_memoire_sortie" string="Mémoire"/>
+                                </group>
+                            </page>
+                            <page string="Suivi">
+                                <group string="Soins personnels">
+                                    <field name="alimentation_suivi" string="Alimentation"/>
+                                    <field name="soins_apparence_suivi" string="Soins de l'apparence"/>
+                                    <field name="toilette_suivi" string="Toilette"/>
+                                    <field name="habillage_partie_sup_suivi" string="Habillage partie supérieure"/>
+                                    <field name="habillage_partie_inf_suivi" string="Habillage partie inférieure"/>
+                                    <field name="utilisatioon_toilette_suivi" string="Utilisatioon des toilettes"/>
+                                    <field name="vessie_suivi" string="Vessie"/>
+                                    <field name="intestin_suivi" string="Intestin"/>
+                                </group>
+                                <group string="Mobilité, transferts">
+                                    <field name="mobilite_lit_chaisse_suivi" string="Lit, chaise, fauteuil roulant"/>
+                                    <field name="mobilite_wc_suivi" string="W.C"/>
+                                    <field name="mobilite_baignoire_douche_suivi" string="Baignoire, douche"/>
+                                </group>
+                                <group string="Locomotion">
+                                    <field name="locomotion_marche_suivi" string="Marche"/>
+                                    <field name="locomotion_fauteuil_roulant_suivi" string="Fauteuil roulant"/>
+                                    <field name="locomotion_toilette_suivi" string="Toilette"/>
+                                </group>
+                                <group string="Communication">
+                                    <field name="communication_comprehension_suivi" string="Compréhension"/>
+                                    <field name="communication_expression_suivi" string="Expression"/>
+                                </group>
+                                <group string="Conscience du monde extérieur">
+                                    <field name="conscience_monde_ext_interaction_sociale_suivi" string="Interactions sociales"/>
+                                    <field name="conscience_resolution_pb_suivi" string="Résolution des problèmes"/>
+                                    <field name="conscience_memoire_suivi" string="Mémoire"/>
+                                </group>
+                            </page>
+                        </notebook>
+                        <group string="Total" col="8" colspan="8">
+                            <field name="total_entree" string="Entrée" readonly="1"/>
+                            <field name="total_sejour" string="Séjour" readonly="1"/>
+                            <field name="total_sortie" string="Sortie" readonly="1"/>
+                            <field name="total_suivi" string="Suivi" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- TRAITEMENT KINESITHERAPIQUE -->
+
+        <record id="view_kine_traitement_tree" model="ir.ui.view">
+            <field name="name">kine.traitement.tree</field>
+            <field name="model">mz.kine.traitement</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Traitement kinesitherapique">
+                    <field name="date_seance_kine" />
+                    <field name="evolution" />
+                    <field name="traitement" />
+                    <field name="observations" />
+                    <field name="noms_kine" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kine_traitement_form" model="ir.ui.view">
+            <field name="name">kine.traitement.form</field>
+            <field name="model">mz.kine.traitement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Traitement kinesitherapique">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date_seance_kine" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Evolution">
+                                <field name="evolution" nolabel="1" colspan="4"/>
+                            </group>
+                            <group string="Traitement">
+                                <field name="traitement" nolabel="1" colspan="4"/>
+                            </group>
+                        </group>
+                        <group string="Observations" col="4" colspan="4">
+                            <field name="observations" nolabel="1" colspan="4"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="noms_kine" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- <record id="view_kine_traitement_form" model="ir.ui.view">
+            <field name="name">kine.traitement.form</field>
+            <field name="model">mz.kine.traitement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Traitement kinesitherapique">
+                    <sheet>
+                        <group>
+                            <field name="patient_id" required="1"/>
+                            <field name="num_fiche" required="1"/>
+                            <field name="nombre_seances_prevues" required="1"/>
+                        </group>
+                        <group colspan="4" string="Traitement">
+					        <field name="traitement_line_ids" colspan="4" nolabel="1">
+								<tree string="Traitement" editable="bottom">
+									<field name="date_seance_kine" />
+									<field name="evolution" />
+									<field name="traitement" />
+									<field name="observations" />
+									<field name="noms_kine" />
+								</tree>
+								<form string="Traitement">
+									<field name="date_seance_kine" readonly="1" force_save="1"/>
+									<field name="evolution" required="1"/>
+									<field name="traitement" required="1"/>
+									<field name="observations" />
+									<field name="noms_kine" readonly="1" force_save="1"/>									
+								</form>
+							</field>
+					    </group>
+                        <group string="Evaluation globale de fin de traitement">
+                            <field name="evaluation_globale" nolabel="1" colspan="4"/>
+                        </group>
+                        <group>
+                            <field name="noms_theurapeute" />
+                        </group>
+                        <group>
+                            <field name="correspondance_prof" colspan="4"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record> -->
+
+
+        
+        
+        <record id="view_kine_motif_consultation_form" model="ir.ui.view">
+            <field name="name">kine.motif.consultation</field>
+            <field name="model">mz.kine.motif.consultation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Motif consultation">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kine_examen_form" model="ir.ui.view">
+            <field name="name">kine.examen</field>
+            <field name="model">mz.kine.examen</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Examen">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kine_diagnostic_medical_form" model="ir.ui.view">
+            <field name="name">kine.diagnostic.medical</field>
+            <field name="model">mz.kine.diagnostic.medical</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Diagnostic medical">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+		
+    </data>
+</odoo>

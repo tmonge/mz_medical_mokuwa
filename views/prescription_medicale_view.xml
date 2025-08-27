@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	
+	    <!-- VALIDATION PHARMACIE -->
+
+		<record id="view_validation_pharmacie_form_inherit" model="ir.ui.view">
+            <field name="name">validation pharmacie inherit</field>
+            <field name="model">mz.prescription.pharmacie</field>
+			<field name="inherit_id" ref="mz_medical_pharmacie_facturation.view_validation_pharmacie_form" />
+            <field name="arch" type="xml">
+				<xpath expr="//form/sheet/notebook/page/group/field[@name='prescription_line_ids']/tree/field[@name='state']" position="after">
+					<button name="%(act_validation_pharmacie_don)d"
+						type="action"
+						icon="mz_medical/static/src/img/icons/STOCK_JUMP_TO.png" states="prescris" group="mz_medical_pharmacie_facturation.group_caisse_pharmacie"/>			 
+				</xpath>
+            </field>
+        </record>
+		
+	</data>
+</odoo>

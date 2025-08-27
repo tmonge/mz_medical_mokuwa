@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+	
+	    <report
+            id="id_bon_demande_analyse_rea"
+            model="mz.evaluation.pre.anesthesique"
+            string="Demande d'analyse"
+            name="mz_medical_dar_cuk.report_demande_analyse_rea"
+            file="mz_medical_dar_cuk.report_demande_analyse_rea"
+            report_type="qweb-pdf" />
+			
+		<report
+            id="id_rapport_evaluation_pre_anesthesique"
+            model="mz.evaluation.pre.anesthesique"
+            string="Rapport evaluation pre anesthesique"
+            name="mz_medical_dar_cuk.report_rapport_evaluation_pre_anesthesique"
+            file="mz_medical_dar_cuk.report_rapport_evaluation_pre_anesthesique"
+            report_type="qweb-pdf" />
+			
+		<report
+            id="id_depart_reveil"
+            model="mz.reveil"
+            string="Départ Réveil"
+            name="mz_medical_dar_cuk.depart_reveil"
+            file="mz_medical_dar_cuk.depart_reveil"
+            report_type="qweb-pdf" />
+			 
+    </data>
+</openerp>

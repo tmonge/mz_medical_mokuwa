@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record id="mz_medical.view_wizard_prescription_actes" model="ir.ui.view">
+            <field name="name">Prescription des actes</field>
+            <field name="model">mz.wizard.prescription.actes</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Prescription des actes">
+					<group col="4" colspan="4">
+                        <field name="service_id" required="1"/>
+                        <field name="groupe_id" required="1" domain="[('service_id','=',service_id)]" />
+                        <field name="patient_id" required="1" invisible="1" />
+						
+                        <separator string="Actes prescris" colspan="4" />
+					    <field name="prescription_acte_ids" required="1" nolabel="1" colspan="4">
+					        <form string="Actes posés">
+						        <field name="acte_id" required="1" domain="[('est_acte','=',True),('service_id','=',parent.service_id),('groupe_id','=',parent.groupe_id)]"
+						         context="{'service_id':parent.service_id, 'groupe_id':parent.groupe_id }" />
+					            <field name="quantite" required="1"/>
+					            <field name="observation"  />
+					            <field name="urgence" />
+					        </form>
+					        <tree string="Actes posés" editable="bottom">
+						        <field name="acte_id" required="1" domain="[('est_acte','=',True),('service_id','=',parent.service_id),('groupe_id','=',parent.groupe_id)]"
+						         context="{'service_id':parent.service_id, 'groupe_id':parent.groupe_id }" />
+					            <field name="quantite" required="1" />
+								<field name="observation" />
+					            <field name="urgence" />
+					         </tree>
+					    </field>
+						
+                    </group>
+					<footer>
+                        <button name="valider_prescription" string="Valider la prescription" type="object" class="valider_prescription oe_highlight" />
+                            or
+                        <button string="Annuler" icon="mz_medical/static/src/img/icons/gtk-cancel.png" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+	</data>
+</openerp>

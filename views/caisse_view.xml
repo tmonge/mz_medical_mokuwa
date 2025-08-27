@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_bank_statement_form_inherit_mukuwa">
+			<field name="name">account.bank.statement.form.inherit.mukuwa</field>
+			<field name="model">account.bank.statement</field>
+			<field name="inherit_id" ref="account.view_bank_statement_form" />
+			<field name="arch" type="xml">
+				
+				<form position="attributes">
+					<attribute name="create">false</attribute>  
+					<attribute name="edit">false</attribute>
+				</form>
+
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_bank_statement_tree_inherit_mukuwa">
+			<field name="name">account.bank.statement.tree.inherit.mukuwa</field>
+			<field name="model">account.bank.statement</field>
+			<field name="inherit_id" ref="account.view_bank_statement_tree" />
+			<field name="arch" type="xml">
+				
+				<tree position="attributes">
+					<attribute name="create">false</attribute>
+				</tree>
+
+			</field>
+		</record>
+
+		<menuitem name="Anciennes Caisses" id="menu_caisse_11" parent="mz_medical_caisse_facturation.medical_caisse" action="account.action_view_bank_statement_tree" sequence="10"/>
+				
+    </data>
+</openerp>

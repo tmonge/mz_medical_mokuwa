@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	
+        <!-- mz.inspection.mobilite.passive.stade -->
+        
+        <record id="mobilite_passive_stade_0" model="mz.inspection.mobilite.passive.stade">  
+            <field name="name">Stade 0 : Imposibilité d'obtenir quelques activités musculaire que ce soit</field>
+        </record>
+
+        <record id="mobilite_passive_stade_1" model="mz.inspection.mobilite.passive.stade">  
+            <field name="name">Stade 1 :Posibilité de modeste contractions perceptibles à la palpation mais
+			                       insuffisantes pour produire un mouvement, meme en l'absence dela pesanteur</field>
+        </record>
+		
+		<record id="mobilite_passive_stade_2" model="mz.inspection.mobilite.passive.stade">  
+            <field name="name">Stade 2 :Mouvement possible seulement en l'absence(immersion dans l'eau)</field>
+        </record>
+		
+		<record id="mobilite_passive_stade_3" model="mz.inspection.mobilite.passive.stade">  
+            <field name="name">Stade 3 :Mouvement impossible contre résistance,mais possible contre la pésanteur</field>
+        </record>
+		
+		<record id="mobilite_passive_stade_4" model="mz.inspection.mobilite.passive.stade">  
+            <field name="name">Stade 4 :Mouvement possible,meme contre une résistance opposée par l'examinateur</field>
+        </record>
+		
+		<record id="mobilite_passive_stade_5" model="mz.inspection.mobilite.passive.stade">  
+            <field name="name">Stade 5 :Force musculaire normale</field>
+        </record>
+		
+    </data>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		
+
+
+		<record model="ir.ui.view" id="dosmed_kine_readaptation_tree">
+			<field name="name">dosmed.kine.readaptation.tree</field>
+			<field name="model">mz.dosmed.kine.readaptation</field>
+			<field name="arch" type="xml">
+				<tree string="Dossier kine-readaptation" create="false">
+					<field name="nombre_seances_prevues" />
+					<field name="noms_theurapeute" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="dosmed_kine_readaptation_form">
+            <field name="name">dosmed.kine.readaptation.form</field>
+            <field name="model">mz.dosmed.kine.readaptation</field>
+            <field name="arch" type="xml">
+                <form string="Dossier kine-readaptation" create="false" edit="false" delete="false">
+                    <sheet>
+						
+						<group colspan="4" col="4">
+						    <field name="nombre_seances_prevues" readonly="1"/>
+							<field name="noms_theurapeute" readonly="1"/>
+							<field name="kine_dossier_id" invisible="1"/>
+                        </group>
+						
+						<group colspan="4" col="4">
+						    <field name="detail" readonly="1" colspan="4" nolabel="1" widget="html"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+		
+    </data>
+</odoo>
