@@ -16,7 +16,6 @@
                 'views/dossier_traitement_view.xml',
                 'views/patient_view.xml',
                 'views/facture_proforma_view.xml',
-                'views/report_facture_detaille.xml',
                 'views/caisse_view.xml',
                 'views/dossier_kine_readaptation.xml',
                 'views/acte_view.xml',
