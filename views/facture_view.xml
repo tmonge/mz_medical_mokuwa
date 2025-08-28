@@ -11,7 +11,7 @@
 				<button name="%(mz_medical_caisse_facturation.act_validation_acte_cash)d" position="after">
 					<button name="%(act_validation_pharmacie_don)d"
 						type="action"
-						icon="mz_medical/static/src/img/STOCK_JUMP_TO.png" attrs="{'invisible':[('state','!=', 'nouveau'),('type_affichage','!=','Pharmacie')]}" group="mz_medical_pharmacie_facturation.group_caisse_pharmacie"/>			 
+						icon="mz_medical/static/src/img/STOCK_JUMP_TO.png" attrs="{'invisible':[('state','!=', 'nouveau'),('type','!=','Pharmacie')]}" group="mz_medical_pharmacie_facturation.group_caisse_pharmacie"/>			 
 				</button>
 				
 			</field>
