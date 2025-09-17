@@ -1,28 +1,26 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models, api, _
-from odoo.exceptions import UserError
-
+from odoo import fields, models, _
 
 class MzPatient(models.Model):
     
     _inherit='mz.patient'
 
-    categorie:fields.Selection([('A', 'A'),('B', 'B') ,('C', 'C') ,('D', 'D')], 'Catégorie')
+    categorie = fields.Selection([('A', 'A'),('B', 'B') ,('C', 'C') ,('D', 'D')], 'Catégorie')
 
-    @api.model
-    def create(self, vals):
+    # @api.model
+    # def create(self, vals):
 
-        vals['name'] = vals.get('name').upper()
-        if vals.get('prenom'):
-            vals['prenom'] = vals.get('prenom').upper()
+    #     vals['name'] = vals.get('name').upper()
+    #     if vals.get('prenom'):
+    #         vals['prenom'] = vals.get('prenom').upper()
 
-        patient_ids = self.search([('name','=',vals.get('name')), ('prenom','=',vals.get('prenom')), ('date_naissance','=',vals.get('date_naissance'))])
-        if patient_ids:
-            raise UserError(_('Le patient que vous essayer d\'enregistrer existe déjà dans le système, veuillez le rechercher, Merci.'))
+    #     patient_ids = self.search([('name','=',vals.get('name')), ('prenom','=',vals.get('prenom')), ('date_naissance','=',vals.get('date_naissance'))])
+    #     if patient_ids:
+    #         raise UserError(_('Le patient que vous essayer d\'enregistrer existe déjà dans le système, veuillez le rechercher, Merci.'))
 
-        vals['numero_fiche'] = self.env['ir.sequence'].next_by_code('patient')
-        vals['est_patient'] = True
-        return super(MzPatient, self).create(vals)
+    #     vals['numero_fiche'] = self.env['ir.sequence'].next_by_code('patient')
+    #     vals['est_patient'] = True
+    #     return super(MzPatient, self).create(vals)
     
     def action_view_dossier_kine_readaptation(self):
         kine_dossier_ids = []

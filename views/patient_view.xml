@@ -13,6 +13,9 @@
 							help="Dossier du patient en kiné-readaptation" 
 							groups="mz_medical.group_infirmier,mz_medical.group_medecin,mz_medical.group_medecin_directeur"/>
                 </button>
+				<field name="numero_fiche" position="replace">
+					<field name="numero_fiche" readonly="0" style="width: 30%%"/>
+                </field>
 
 				<!-- <xpath expr="//notebook/page[2]" position="attributes">
 					<attribute name="string">Conclusion</attribute>        
